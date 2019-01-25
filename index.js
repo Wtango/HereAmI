@@ -23,6 +23,8 @@ function hereAmI() {
                 address = echoIp;
             }
         });
+    }).on('error', (e) => {
+        console.error(e);
     });
 }
 
