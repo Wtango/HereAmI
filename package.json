@@ -1,0 +1,25 @@
+{
+  "name": "hereami",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wtango/HereAmI.git"
+  },
+  "keywords": [
+    "IP",
+    "update",
+    "github",
+    "address"
+  ],
+  "author": "Tango Wu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wtango/HereAmI/issues"
+  },
+  "homepage": "https://github.com/Wtango/HereAmI#readme"
+}
