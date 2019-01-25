@@ -5,7 +5,7 @@ const config =require('./config');
 const ECHO_SERVER = 'https://ipecho.net/plain';
 const HereAmIFile = './HereAmI';
 
-let address = fs.readFileSync(HereAmIFile);
+let address = fs.readFileSync(HereAmIFile, 'utf8');
 
 function hereAmI() {
     https.get(ECHO_SERVER, (res) => {
