@@ -13,3 +13,11 @@ Look up your public network ip address and sync it to Github.
 1.  Fork [HereAmI](https://github.com/wtango/HereAmI/fork) to your own namespace.
 2.  Clone the project to your machine
 3.  Start the service
+
+Now you can get your IP with URL https://raw.githubusercontent.com/<Github Username\>/HereAmI/master/HereAmI
+
+## Configuration
+
+`config.json` under the project root directory is the configuration file for **WherAmI**.
+
+    `interval`: The sync interval in seconds, default to 60s.
