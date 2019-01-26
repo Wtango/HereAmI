@@ -1,7 +1,7 @@
 {
   "name": "hereami",
   "version": "1.0.0",
-  "description": "",
+  "description": "Look up your public network ip address and sync it to Github.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
