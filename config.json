@@ -1,3 +1,4 @@
 {
-    "interval": 60
+    "interval": 60,
+    "echoServer": "ip.taobao.com"
 }
