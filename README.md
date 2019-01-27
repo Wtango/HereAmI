@@ -10,7 +10,7 @@ Look up your public network ip address and sync it to Github.
 
 ## Usage
 
-1.  Fork [HereAmI](https://github.com/wtango/HereAmI/fork) to your own namespace.
+1.  [Fork](https://github.com/wtango/HereAmI/fork) HereAmI to your own namespace.
 2.  Clone the project to your machine
 3.  Start the service with following command
    ``` bash
