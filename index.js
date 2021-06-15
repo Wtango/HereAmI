@@ -1,21 +1,25 @@
 const https = require('https');
-const http = require('http');
 const fs = require('fs');
 const config = require('./config');
 const child_process = require('child_process');
 
 const HereAmIFile = 'HereAmI';
+const ipv4Regex = /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
 
 const ECHO_SERVER = {
     'ipecho.net': {
         method: https.get,
         endpoint: 'https://ipecho.net/plain',
-        parser: function (data) { return data; }
+        parser: data => data
     },
-    'ip.taobao.com': {
-        method: http.get,
-        endpoint: 'http://ip.taobao.com/service/getIpInfo.php?ip=myip',
-        parser: function (data) { return JSON.parse(data).data.ip; }
+    'sohu.com': {
+        method: https.get,
+        endpoint: 'https://pv.sohu.com/cityjson',
+        parser: (data) => {
+            // data example: 'var returnCitySN = {"cip": "61.140.211.216", "cid": "440103", "cname": "广东省广州市荔湾区"};'
+            // should not use `eval` in case any security issue
+            return data.match(ipv4Regex)[0];
+        }
     }
 }
 
@@ -37,6 +41,7 @@ function hereAmI() {
         res.on('end', () => {
             echoIp = echoServer.parser(echoIp);
             if (echoIp !== address) {
+                console.info(`I move to ${echoIp}`);
                 fs.writeFileSync(HereAmIFile, echoIp);
                 syncIp(echoIp);
                 address = echoIp;

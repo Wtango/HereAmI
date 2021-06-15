@@ -27,6 +27,6 @@ Now you can get your IP with URL https://raw.githubusercontent.com/<Github Usern
 
 `config.json` under the project root directory is the configuration file for **WhereAmI**.
 
-> `interval`: The sync interval in seconds, default to 60s.
+`interval`: The sync interval in seconds, default to 60s.
 
-> `echoServer`: Select which IP echo server should be used, current supported values are `ip.taobao.com` & `ipecho.net`, default to `ip.taobao.com`.
+`echoServer`: Select which IP echo server should be used, current supported values are `sohu.com` & `ipecho.net`, default to `sohu.com`.
