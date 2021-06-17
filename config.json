@@ -1,4 +1,8 @@
 {
     "interval": 60,
-    "echoServer": "sohu.com"
+    "echoServer": "sohu.com",
+    "aliDns": {
+        "DomainName": "wtango.com",
+        "RR": "home"
+    }
 }
