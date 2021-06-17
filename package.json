@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node index.js"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Wtango/HereAmI.git"

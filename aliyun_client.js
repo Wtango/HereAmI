@@ -1,6 +1,6 @@
 const Core = require('@alicloud/pop-core');
 
-export class AliYunClient {
+class AliYunClient {
   constructor(options) {
     this.options = options;
     this.client = new Core({
@@ -27,4 +27,8 @@ export class AliYunClient {
   addDomainRecord(ip) {
     return this.req('AddDomainRecord', { Value: ip });
   }
+}
+
+module.exports = {
+  AliYunClient
 }

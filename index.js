@@ -1,9 +1,9 @@
-import * as  https from 'https';
-import * as  fs from 'fs';
-import * as  childProcess from 'child_process';
+const https = require('https');
+const fs =  require('fs');
+const childProcess = require('child_process');
 
-import * as aliyun from './aliyun_client.js';
-import * as  config from './config.json';
+const aliyun = require('./aliyun_client.js');
+const config = require('./config.json');
 
 const HereAmIFile = 'HereAmI';
 const ipv4Regex = /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
