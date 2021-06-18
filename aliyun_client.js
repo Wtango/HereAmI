@@ -21,7 +21,7 @@ class AliYunClient {
   }
 
   req(action, p) {
-    return this.client.request(action, { ...this.params, ...p }, this.requestOption);
+    return this.client.request(action, { ...this.domainParams, ...p }, this.requestOption);
   }
 
   addDomainRecord(ip) {
