@@ -36,9 +36,12 @@ Now you can get your IP with URL https://raw.githubusercontent.com/<Github Usern
 
 #### <a id="aliDns">aliDns</a>
 `aliDns.DomainName`: The domain you want to update the IP address to
+
 `aliDns.RR`: The host record. For example, to resolve @.example.com, you must set RR to an at "@" instead of leaving it blank.
 
 ### Environment variables
 To enable the `HereAmI` to sync the IP address to Aliyun DNS, you need to set bellow environment variables  
+
 `ACCESS_KEY_ID`: Aliyun access key id
+
 `ACCESS_KEY_SECRET`: Aliyun access key secret
