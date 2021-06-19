@@ -11,11 +11,11 @@ const ipv4Regex = /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]
 const accessKeyId = process.env.ACCESS_KEY_ID;
 const accessKeySecret = process.env.ACCESS_KEY_SECRET;
 
-const client = new aliyun.AliYunClient({
+const client = accessKeyId && accessKeySecret ? new aliyun.AliYunClient({
     ...config.aliDns,
     accessKeyId,
     accessKeySecret
-});
+}) : undefined;
 
 const ECHO_SERVER = {
     'ipecho.net': {
@@ -54,18 +54,25 @@ function hereAmI() {
             echoIp = echoServer.parser(echoIp);
             if (echoIp !== address) {
                 console.info(`I move to ${echoIp}`);
-                client.addOrUpdateDomainRecord(echoIp)
-                    .then(
-                        () => {
-                            console.info(`Update domain record to ${echoIp} success`);
-                            fs.writeFileSync(HereAmIFile, echoIp);
-                            syncIp(echoIp);
-                            address = echoIp;
-                        },
-                        (err) => {
-                            console.error('Add domain record error:', err)
-                        }
-                    );
+                if (client) {
+                    client.addOrUpdateDomainRecord(echoIp)
+                        .then(
+                            () => {
+                                console.info(`Update domain record to ${echoIp} success`);
+                                fs.writeFileSync(HereAmIFile, echoIp);
+                                syncIp(echoIp);
+                                address = echoIp;
+                            },
+                            (err) => {
+                                console.error('Add domain record error:', err)
+                            }
+                        );
+                } else {
+                    console.info(`DNS is not enable, will not update DNS configuration`);
+                    fs.writeFileSync(HereAmIFile, echoIp);
+                    syncIp(echoIp);
+                    address = echoIp;
+                }
             }
         });
     }).on('error', (e) => {
@@ -73,4 +80,5 @@ function hereAmI() {
     });
 }
 
-setInterval(hereAmI, config.interval * 1000);
+// setInterval(hereAmI, config.interval * 1000);
+hereAmI();
