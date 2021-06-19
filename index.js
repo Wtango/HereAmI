@@ -80,5 +80,4 @@ function hereAmI() {
     });
 }
 
-// setInterval(hereAmI, config.interval * 1000);
-hereAmI();
+setInterval(hereAmI, config.interval * 1000);

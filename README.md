@@ -12,7 +12,11 @@ Look up your public network ip address and sync it to Github.
 
 1.  [Fork](https://github.com/wtango/HereAmI/fork) HereAmI to your own namespace.
 2.  Clone the project to your machine
-3.  Start the service with following command
+3.  Install node_modules
+   ``` base
+    $ npm install
+   ```
+4.  Start the service with following command
    ``` bash
     # Start normally
     $ node index.js
