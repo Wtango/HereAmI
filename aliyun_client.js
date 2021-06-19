@@ -1,5 +1,9 @@
 const Core = require('@alicloud/pop-core');
 
+class BreakSignal {
+
+}
+
 class AliYunClient {
   constructor(options) {
     this.options = options;
@@ -26,6 +30,44 @@ class AliYunClient {
 
   addDomainRecord(ip) {
     return this.req('AddDomainRecord', { Value: ip });
+  }
+
+  describeSubDomainRecords() {
+    return this.req('DescribeSubDomainRecords', { SubDomain: `${this.domainParams.RR}.${this.domainParams.DomainName}` });
+  }
+
+  deleteDomainRecord(RecordId) {
+    return this.req('DeleteDomainRecord', { RecordId });
+  }
+
+  addOrUpdateDomainRecord(ip) {
+    return this.describeSubDomainRecords()
+      .then((result) => {
+        let sameRecordExist = false;
+        result.DomainRecords.Record.forEach((record) => {
+          if (record.Value === ip) {
+            console.info(`IP existing on current DNS configuration`);
+            sameRecordExist = true;
+          } else {
+            // delete all the unmatched records
+            console.info(`delete record: `, record);
+            return this.deleteDomainRecord(record.RecordId);
+          }
+        });
+        if (sameRecordExist) {
+          throw new BreakSignal();
+        }
+      })
+      .then(() => {
+        return this.addDomainRecord(ip);
+      })
+      .catch((err) => {
+        if (err instanceof BreakSignal) {
+          // normal finish the operation
+        } else {
+          throw err;
+        }
+      });
   }
 }
 

@@ -1,5 +1,5 @@
 const https = require('https');
-const fs =  require('fs');
+const fs = require('fs');
 const childProcess = require('child_process');
 
 const aliyun = require('./aliyun_client.js');
@@ -34,10 +34,11 @@ const ECHO_SERVER = {
     }
 }
 
-var address = fs.readFileSync(HereAmIFile, 'utf8');
+let address;
 
 function syncIp(echoIp) {
     childProcess.exec(`git add ${HereAmIFile} && git commit -m "I move to ${echoIp}" && git push`);
+    console.info(`sync IP address to upstream success`);
 }
 
 function hereAmI() {
@@ -53,14 +54,18 @@ function hereAmI() {
             echoIp = echoServer.parser(echoIp);
             if (echoIp !== address) {
                 console.info(`I move to ${echoIp}`);
-                fs.writeFileSync(HereAmIFile, echoIp);
-                syncIp(echoIp);
-                // TODO: change to addOrUpdateDomainRecord
-                client.addDomainRecord(echoIp)
-                    .then((result) => { console.log('Add domain record success:', result) })
-                    .catch((err) => { console.error('Add domain record error:', err) });
-                // FIXME: only update the cached IP when domain record is updated
-                address = echoIp;
+                client.addOrUpdateDomainRecord(echoIp)
+                    .then(
+                        () => {
+                            console.info(`Update domain record to ${echoIp} success`);
+                            fs.writeFileSync(HereAmIFile, echoIp);
+                            syncIp(echoIp);
+                            address = echoIp;
+                        },
+                        (err) => {
+                            console.error('Add domain record error:', err)
+                        }
+                    );
             }
         });
     }).on('error', (e) => {
